@@ -243,8 +243,7 @@ class ChargeService extends \com\checkout\ApiServices\BaseServices
 			'method'         => 'GET',
 		);
 
-		$retrieveChargeWithChargeUri = sprintf ($this->_apiUrl->getRetrieveChargesApiUri(),$chargeId
-		());
+		$retrieveChargeWithChargeUri = sprintf ($this->_apiUrl->getRetrieveChargesApiUri(),$chargeId);
 
 		$processCharge = \com\checkout\helpers\ApiHttpClient::getRequest($retrieveChargeWithChargeUri,
 			$this->_apiSetting->getSecretKey(),$requestPayload);
