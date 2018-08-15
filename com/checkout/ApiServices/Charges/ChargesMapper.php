@@ -335,6 +335,17 @@ class ChargesMapper
 					$requestPayload['paymentPlans'][] = $requestSinglePaymentPlan;
 				}
 			}
+            
+            if(method_exists($requestModel,'getBaseLocalPayment') ) {
+				$baseLocalPayment = $requestModel->getBaseLocalPayment();
+
+				$requestPayload['localPayment']['lppId'] = $baseLocalPayment->getLppId();
+
+				if ( !empty($baseLocalPayment->getIssuerId()) ) {
+					$requestPayload['localPayment']['userData']['issuerId'] = $baseLocalPayment->getIssuerId();
+				}
+
+			}
 
 		}
 
