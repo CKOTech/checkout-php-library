@@ -31,6 +31,7 @@ class ApiUrls
     private $_recurringPaymentsCustomersApiUri = null;
     private $_recurringPaymentsCustomersQueryApiUri = null;
     private $_visaCheckoutCardTokenApiUri = null;
+    private $_localPayementChargesApiUrl = null;
 
     public function __construct()
     {
@@ -592,4 +593,28 @@ class ApiUrls
     {
         $this->_visaCheckoutCardTokenApiUri = $visaCheckoutCardTokenApiUri;
     }
+    
+    /**
+     * get local payment charge url
+     * @return string
+     */
+    public function getLocalPaymentChargesApiUrl()
+    {
+        if (empty($this->_localPayementChargesApiUrl)) {
+            $this->setLocalPayementChargesApiUrl($this->getBaseApiUri() . "/charges/localpayment");
+        }
+        return $this->_localPayementChargesApiUrl;
+    }
+
+	/**
+	 *
+	 * @param string $localPayementChargesApiUrl Local payment charge API url
+	 * @return $this
+	 */
+	public function setLocalPayementChargesApiUrl($localPayementChargesApiUrl)
+	{
+		$this->_localPayementChargesApiUrl = $localPayementChargesApiUrl;
+		return $this;
+	}
+
 }

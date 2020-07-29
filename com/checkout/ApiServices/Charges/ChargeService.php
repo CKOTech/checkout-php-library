@@ -306,6 +306,30 @@ class ChargeService extends \com\checkout\ApiServices\BaseServices
 		$responseModel = new ResponseModels\ChargeHistory($processCharge);
 		return $responseModel;
 	}
+    
+	/**
+	 * Creates a charge with a local payment
+	 * @param RequestModels\LocalPaymentCharge $requestModel
+	 * @return ResponseModels\Charge
+	 */
+	public function chargeWithLocalPayment(RequestModels\LocalPaymentCharge $requestModel)
+	{
 
+		$chargeMapper = new ChargesMapper($requestModel);
+
+		$requestPayload = array (
+			'authorization' => $this->_apiSetting->getSecretKey(),
+			'mode'          => $this->_apiSetting->getMode(),
+			'postedParam'   => $chargeMapper->requestPayloadConverter(),
+
+		);
+
+		$processCharge = \com\checkout\helpers\ApiHttpClient::postRequest($this->_apiUrl->getLocalPaymentChargesApiUrl(),
+			$this->_apiSetting->getSecretKey(),$requestPayload);
+
+		$responseModel = new ResponseModels\Charge($processCharge);
+
+		return $responseModel;
+	}
 
 }
